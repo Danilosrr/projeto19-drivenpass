@@ -14,7 +14,14 @@ async function createWifi(createWifi:createWifi){
     return await prisma.wifi.create({ data:createWifi });
 }
 
+async function findAllByUser(userId:number){
+    return await prisma.wifi.findMany({
+        where: {userId}
+    })
+}
+
 export const wifiRepository = {
     findByNetworkAndUser,
+    findAllByUser,
     createWifi
 }

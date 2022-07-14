@@ -10,3 +10,11 @@ export async function createWifi(req:Request, res:Response){
     const createWifi = await wifiServices.createNewWifi(wifi);
     res.send(createWifi);
 }
+
+export async function getWifis(req:Request, res:Response){
+    const user:token = res.locals.token;
+
+    const userWifis = await wifiServices.findAllWifis(user.id);
+
+    res.send(userWifis);
+}

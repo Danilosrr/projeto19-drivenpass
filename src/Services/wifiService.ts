@@ -14,6 +14,11 @@ async function createNewWifi(wifi:createWifi) {
     return create;
 }
 
+async function findAllWifis(userId:number){
+    return await wifiRepository.findAllByUser(userId);
+}
+
 export const wifiServices = {
     createNewWifi,
+    findAllWifis
 }
