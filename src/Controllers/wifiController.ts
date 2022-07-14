@@ -1,4 +1,5 @@
 import { Request,Response } from "express";
+import { badRequestError } from "../Middlewares/errorHandler.js";
 import { token } from "../Repositories/userRepository.js";
 import { createWifi } from "../Repositories/wifiRepository.js";
 import { wifiServices } from "../Services/wifiService.js";
@@ -17,4 +18,15 @@ export async function getWifis(req:Request, res:Response){
     const userWifis = await wifiServices.findAllWifis(user.id);
 
     res.send(userWifis);
+}
+
+export async function deleteWifi(req:Request, res:Response){
+    const id:number = +req.params.id
+    const user:token = res.locals.token;
+
+    if ( isNaN(id) ) throw badRequestError("parametro invalido");
+
+    const deleteWifi = await wifiServices.deleteWifi(user.id,id);
+
+    res.send(deleteWifi);
 }

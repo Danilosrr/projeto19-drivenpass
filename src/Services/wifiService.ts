@@ -1,4 +1,4 @@
-import { conflictError } from "../Middlewares/errorHandler.js";
+import { conflictError, forbiddenError, notFoundError } from "../Middlewares/errorHandler.js";
 import { createWifi, wifiRepository } from "../Repositories/wifiRepository.js";
 import bcrypt from "bcrypt";
 
@@ -18,7 +18,16 @@ async function findAllWifis(userId:number){
     return await wifiRepository.findAllByUser(userId);
 }
 
+async function deleteWifi(userId:number,id){
+    const deleteWifi = await wifiRepository.deleteWifi(userId,id);
+    if (!deleteWifi) throw forbiddenError("deleting request error");
+    if (deleteWifi.count == 0) throw notFoundError("nothing to delete");
+
+    return deleteWifi;
+}
+
 export const wifiServices = {
     createNewWifi,
-    findAllWifis
+    findAllWifis,
+    deleteWifi
 }
