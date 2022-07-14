@@ -11,6 +11,7 @@ async function signUpService(createUser:createUser){
     if (conflict) throw conflictError("email already used");
 
     const signUp = await userRepository.createUser({ email, password });
+    return signUp;
 }
 
 async function signInService(createUser:createUser){
@@ -22,8 +23,7 @@ async function signInService(createUser:createUser){
     const passwordMatch = await bcrypt.compareSync(password, emailFound.password);
     if (!passwordMatch) throw forbiddenError("incorrect password");
 
-
-    const token = jwt.sign(createUser, process.env.JWT_KEY);
+    const token = jwt.sign({...createUser,id:emailFound.id}, process.env.JWT_KEY);
     return token
 }
 

@@ -27,7 +27,7 @@ model Wifi {
   network   String    
   password  String   
   createdAt DateTime @default(now())
-  @@unique([userId,name], name: "nameIdentifier")
+  @@unique([userId,network], name: "networkIdentifier")
 }
 
 model Credential {

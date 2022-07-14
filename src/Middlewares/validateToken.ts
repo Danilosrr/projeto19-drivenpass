@@ -5,13 +5,14 @@ import { unauthorizedError } from "./errorHandler.js";
 export default function validToken(req:Request,res:Response,next:NextFunction){
     const { authorization } = req.headers;    
     const secretKey = process.env.JWT_KEY;
-
+ 
     const token = authorization?.replace("Bearer ", "").trim();
-    if(!token) throw unauthorizedError("missing token")
+    if (!token) throw unauthorizedError("missing token");
+        
+    const verify = jwt.verify(token, secretKey, function(err){ 
+        if (err) throw unauthorizedError("unauthorized token");
+    });
 
-    const user = jwt.verify(token, secretKey);
-    if(!user) throw unauthorizedError("unauthorized token")
-
-    res.locals.user = user;
+    res.locals.token = jwt.decode(token);
     next();
 }
