@@ -32,8 +32,9 @@ async function deleteNote(userId:number,id:number){
     });
 }
 
-export const NoteRepository = {
+export const noteRepository = {
     findBytitleAndUser,
+    findByIdAndUser,
     createNote,
     findAllByUser,
     deleteNote
