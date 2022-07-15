@@ -1,11 +1,11 @@
 import { conflictError, forbiddenError, notFoundError } from "../Middlewares/errorHandler.js";
 import { createWifi, wifiRepository } from "../Repositories/wifiRepository.js";
-import bcrypt from "bcrypt";
+import { decrypt, encrypt } from "../Utils/hashUtil.js";
 
 
 async function createNewWifi(wifi:createWifi) {
     const { name, network, userId } = wifi;
-    const password = await bcrypt.hash(wifi.password,10);
+    const password = await encrypt(wifi.password);
 
     const userNetworkFound = await wifiRepository.findByNetworkAndUser(network,userId);
     if (userNetworkFound) throw conflictError("network already exists");
@@ -15,12 +15,22 @@ async function createNewWifi(wifi:createWifi) {
 }
 
 async function findAllWifis(userId:number){
-    return await wifiRepository.findAllByUser(userId);
+    const wifis = await wifiRepository.findAllByUser(userId);
+
+    if (wifis.length>0){ 
+        wifis.forEach(wifi=>( 
+            wifi.password = decrypt(wifi.password)
+        ));
+    };
+
+    return wifis;
 }
 
 async function findOneWifi(userId:number,id:number){
     const wifi = await wifiRepository.findByIdAndUser(id,userId);
     if (!wifi) throw notFoundError("wifi not found");
+
+    wifi.password = decrypt(wifi.password);
 
     return wifi;
 }

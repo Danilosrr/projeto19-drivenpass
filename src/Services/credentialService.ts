@@ -1,10 +1,10 @@
 import { conflictError, forbiddenError, notFoundError } from "../Middlewares/errorHandler.js";
 import { createCredential, CredentialRepository } from "../Repositories/credentialRepository.js";
-import bcrypt from "bcrypt";
+import { decrypt, encrypt } from "../Utils/hashUtil.js";
 
 async function createNewCredential(credential:createCredential) {
     const { userId, name, url, username } = credential;
-    const password = await bcrypt.hash(credential.password,10);
+    const password = await encrypt(credential.password);
 
     const usercredentialFound = await CredentialRepository.findByNameAndUser(name,userId);
     if (usercredentialFound) throw conflictError("name already exists");
@@ -14,12 +14,22 @@ async function createNewCredential(credential:createCredential) {
 }
 
 async function findAllCredentials(userId:number){
-    return await CredentialRepository.findAllByUser(userId);
+    const credentials = await CredentialRepository.findAllByUser(userId);
+
+    if (credentials.length>0){ 
+        credentials.forEach(credential=>( 
+            credential.password = decrypt(credential.password)
+        ));
+    };
+
+    return credentials;
 }
 
 async function findOneCredential(userId:number,id){
     const credential = await CredentialRepository.findByIdAndUser(userId,id);
     if (!credential) throw notFoundError("credential not found");
+
+    credential.password = decrypt(credential.password);
 
     return credential;
 }

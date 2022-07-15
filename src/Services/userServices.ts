@@ -1,11 +1,11 @@
 import { conflictError, forbiddenError, notFoundError } from "../Middlewares/errorHandler.js";
 import { createUser, userRepository } from "../Repositories/userRepository.js";
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { compare, encrypt } from "../Utils/hashUtil.js";
 
 async function signUpService(createUser:createUser){
     const { email } = createUser;
-    const password = await bcrypt.hash(createUser.password,10);
+    const password = await encrypt(createUser.password);
 
     const conflict = await userRepository.findByEmail(email);
     if (conflict) throw conflictError("email already used");
@@ -20,7 +20,7 @@ async function signInService(createUser:createUser){
     const emailFound = await userRepository.findByEmail(email);
     if (!emailFound) throw notFoundError("email not found");
 
-    const passwordMatch = await bcrypt.compareSync(password, emailFound.password);
+    const passwordMatch = compare(password, emailFound.password);
     if (!passwordMatch) throw forbiddenError("incorrect password");
 
     const token = jwt.sign({...createUser,id:emailFound.id}, process.env.JWT_KEY);
