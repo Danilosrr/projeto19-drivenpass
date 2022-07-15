@@ -5,6 +5,7 @@ import cors from "cors";
 import userRouter from "./Routers/userRouter.js";
 import handleErrors from "./Middlewares/errorHandler.js";
 import wifiRouter from "./Routers/wifiRouter.js";
+import credentialRouter from "./Routers/credentialRouter.js";
 
 dotenv.config();
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app. use(userRouter);
 app.use(wifiRouter);
+app.use(credentialRouter);
 app.use(handleErrors);
 
 const port = +process.env.PORT || 4000;

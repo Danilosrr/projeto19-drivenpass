@@ -33,10 +33,11 @@ model Wifi {
 model Credential {
   id        Int      @id @default(autoincrement())
   user      Users    @relation(fields: [userId], references: [id])
-  userId    Int     
+  userId    Int
+  name      String         
   url       String 
   username  String
   password  String   
   createdAt DateTime @default(now())
-  @@unique([userId,url], name: "urlIdentifier")
+  @@unique([userId,name], name: "nameIdentifier")
 }
