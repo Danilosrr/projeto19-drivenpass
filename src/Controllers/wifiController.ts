@@ -20,6 +20,17 @@ export async function getWifis(req:Request, res:Response){
     res.send(userWifis);
 }
 
+export async function getOneWifi(req:Request, res:Response){
+    const id:number = +req.params.id;
+    const user:token = res.locals.token;
+
+    if ( isNaN(id) ) throw badRequestError("parametro invalido");
+
+    const userWifi = await wifiServices.findOneWifi(user.id,id);
+
+    res.send(userWifi);
+}
+
 export async function deleteWifi(req:Request, res:Response){
     const id:number = +req.params.id
     const user:token = res.locals.token;

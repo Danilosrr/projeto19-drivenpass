@@ -20,6 +20,12 @@ async function findAllByUser(userId:number){
     })
 }
 
+async function findByIdAndUser(id:number,userId:number){
+    return await prisma.wifi.findFirst({
+        where: {id,userId}
+    })
+}
+
 async function deleteWifi(userId:number,id:number){
     return await prisma.wifi.deleteMany({
         where:{userId,id}
@@ -29,6 +35,7 @@ async function deleteWifi(userId:number,id:number){
 export const wifiRepository = {
     findByNetworkAndUser,
     findAllByUser,
+    findByIdAndUser,
     deleteWifi,
     createWifi
 }

@@ -18,6 +18,13 @@ async function findAllWifis(userId:number){
     return await wifiRepository.findAllByUser(userId);
 }
 
+async function findOneWifi(userId:number,id:number){
+    const wifi = await wifiRepository.findByIdAndUser(id,userId);
+    if (!wifi) throw notFoundError("wifi not found");
+
+    return wifi;
+}
+
 async function deleteWifi(userId:number,id){
     const deleteWifi = await wifiRepository.deleteWifi(userId,id);
     if (!deleteWifi) throw forbiddenError("deleting request error");
@@ -29,5 +36,6 @@ async function deleteWifi(userId:number,id){
 export const wifiServices = {
     createNewWifi,
     findAllWifis,
+    findOneWifi,
     deleteWifi
 }

@@ -17,6 +17,13 @@ async function findAllCredentials(userId:number){
     return await CredentialRepository.findAllByUser(userId);
 }
 
+async function findOneCredential(userId:number,id){
+    const credential = await CredentialRepository.findByIdAndUser(userId,id);
+    if (!credential) throw notFoundError("credential not found");
+
+    return credential;
+}
+
 async function deleteCredential(userId:number,id){
     const deleteCredential = await CredentialRepository.deleteCredential(userId,id);
     if (!deleteCredential) throw forbiddenError("deleting request error");
@@ -28,5 +35,6 @@ async function deleteCredential(userId:number,id){
 export const credentialService = {
     createNewCredential,
     findAllCredentials,
+    findOneCredential,
     deleteCredential,
 }

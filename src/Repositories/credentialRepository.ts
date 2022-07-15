@@ -20,6 +20,12 @@ async function findAllByUser(userId:number){
     })
 }
 
+async function findByIdAndUser(userId:number,id:number,){
+    return await prisma.credential.findFirst({
+        where: {userId,id}
+    })
+}
+
 async function deleteCredential(userId:number,id:number){
     return await prisma.credential.deleteMany({
         where: {userId,id}
@@ -29,6 +35,7 @@ async function deleteCredential(userId:number,id:number){
 export const CredentialRepository = {
     findByNameAndUser,
     createCredential,
+    findByIdAndUser,
     findAllByUser,
     deleteCredential
 }
