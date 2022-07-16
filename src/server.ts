@@ -8,6 +8,7 @@ import wifiRouter from "./Routers/wifiRouter.js";
 import credentialRouter from "./Routers/credentialRouter.js";
 import noteRouter from "./Routers/noteRouter.js";
 import cardRouter from "./Routers/cardRouter.js";
+import docRouter from "./Routers/docRouter.js";
 
 dotenv.config();
 const app = express();
@@ -20,6 +21,7 @@ app.use(wifiRouter);
 app.use(credentialRouter);
 app.use(noteRouter);
 app.use(cardRouter);
+app.use(docRouter);
 
 app.use(handleErrors);
 

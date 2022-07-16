@@ -19,6 +19,7 @@ model Users {
   credentials Credential[]
   notes       Note[]
   cards       Card[]
+  documents   Document[]
 }
 
 model Wifi {
@@ -59,6 +60,10 @@ enum cardType {
   credit
   both
 }
+enum docType {
+  CNH
+  RG
+}
 
 model Card {
   id             Int      @id @default(autoincrement())
@@ -72,5 +77,19 @@ model Card {
   isVirtual      Boolean
   type           cardType
   createdAt DateTime @default(now())
+  @@unique([userId, title], name: "titleIdentifier")
+}
+
+model Document {
+  id             Int     @id @default(autoincrement())
+  user           Users   @relation(fields: [userId], references: [id])
+  userId         Int
+  type           docType
+  title          String
+  number         String
+  issuingBody    String
+  completeName   String
+  emissionDate   String
+  expirationDate String
   @@unique([userId, title], name: "titleIdentifier")
 }
