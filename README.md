@@ -1,11 +1,15 @@
-<p align="center">
-  <h3 align="center">
+<div style="display: flex; align-items: center; justify-content: center;">
+  <h3 style="margin: 5px 5px auto ">
     DrivenPass  
-  </h3>
+  </h3> 
+  <img height="30px" width="30px" src="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f512.svg"/>
+</div>
+
+<p>
+    DrivenPass is a application where a user can save passwords and informations under a unique master key, saving the time to memorize then
 </p>
 
 ## Usage
-
 ```bash
 $ git clone https://github.com/Danilosrr/projeto19-drivenpass
 
@@ -18,6 +22,7 @@ $ npm run dev
 
 ## API:
 
+### authorization:
 ```
 - POST /signup
     - Route to create new user
@@ -32,6 +37,8 @@ $ npm run dev
         "password": "password123"
     }
  ```
+
+ ### credentials:
  ```
 - POST /user/credential
     - Route where user can save a new credential
@@ -55,6 +62,8 @@ $ npm run dev
     - headers: {  "Authorization": "token"  }
     - body: {}
 ```
+
+### notes:
 ```
 - POST /user/note
     - Route where user can save a new note
@@ -76,9 +85,11 @@ $ npm run dev
     - headers: {  "Authorization": "token"  }
     - body: {}
 ```
+
+### wifi:
 ```
 - POST /user/wifi
-    - Route where user can save a new wifi
+    - Route where user can save a new network
     - headers: {  "Authorization": "token"  }
     - body: {
         "name": "internet",
@@ -87,17 +98,19 @@ $ npm run dev
       }
       
 - GET /user/wifi/:id
-    - Route where user can see wifi's
+    - Route where user can see networks
     - query param: if given an id returns only specified object  
     - headers: {  "Authorization": "token"  }
     - body: {}
     
 - DELETE /user/wifi/:id
-    - Route where user can delete wifi's
+    - Route where user can delete networks
     - query param: id of the specified object for deletion 
     - headers: {  "Authorization": "token"  }
     - body: {}
 ```
+
+### card:
 ```
 - POST /user/card
     - Route where user can save a new card
@@ -124,6 +137,8 @@ $ npm run dev
     - headers: {  "Authorization": "token"  }
     - body: {}
 ```
+
+### documents:
 ```
 - POST /user/doc
     - Route where user can save a new document
