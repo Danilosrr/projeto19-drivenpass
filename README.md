@@ -18,7 +18,7 @@ $ npm run dev
 ## API:
 
 ### authorization:
-```
+```yml
 - POST /signup
     - Route to create new user
     - body: {
@@ -34,14 +34,14 @@ $ npm run dev
  ```
 
  ### credentials:
- ```
+ ```yml
 - POST /user/credential
     - Route where user can save a new credential
     - headers: {  "Authorization": "token"  }
     - body: {
         "name": "youtube",
-        "url":"https://www.youtube.com/",
-        "username":"username",
+        "url": "https://www.youtube.com/",
+        "username": "username",
         "password": "password"
       }
       
@@ -59,13 +59,13 @@ $ npm run dev
 ```
 
 ### notes:
-```
+```yml
 - POST /user/note
     - Route where user can save a new note
     - headers: {  "Authorization": "token"  }
     - body: {
         "title": "Note title",
-        "note":"note content"
+        "note": "note content"
       }
       
 - GET /user/note/:id
@@ -82,13 +82,13 @@ $ npm run dev
 ```
 
 ### wifi:
-```
+```yml
 - POST /user/wifi
     - Route where user can save a new network
     - headers: {  "Authorization": "token"  }
     - body: {
         "name": "internet",
-        "network":"network",
+        "network": "network",
         "password": "0123456789"
       }
       
@@ -106,7 +106,7 @@ $ npm run dev
 ```
 
 ### card:
-```
+```yml
 - POST /user/card
     - Route where user can save a new card
     - headers: {  "Authorization": "token"  }
@@ -134,7 +134,7 @@ $ npm run dev
 ```
 
 ### documents:
-```
+```yml
 - POST /user/doc
     - Route where user can save a new document
     - headers: {  "Authorization": "token"  }
