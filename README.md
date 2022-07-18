@@ -1,9 +1,4 @@
-<div style="display: flex; align-items: center; justify-content: center;">
-  <h3 style="margin: 5px 5px auto ">
-    DrivenPass  
-  </h3> 
-  <img height="30px" width="30px" src="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f512.svg"/>
-</div>
+#   <img width="30" src="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f512.svg"/> DrivenPass  
 
 <p>
     DrivenPass is a application where a user can save passwords and informations under a unique master key, saving the time to memorize then
