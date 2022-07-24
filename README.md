@@ -47,13 +47,13 @@ $ npm run dev
       
 - GET /user/credential/:id
     - Route where user can see credentials
-    - query param: if given an id returns only specified object  
+    - Route param: if given an id returns only specified object  
     - headers: {  "Authorization": "token"  }
     - body: {}
     
 - DELETE /user/credential/:id
     - Route where user can delete credentials
-    - query param: id of the specified object for deletion 
+    - Route param: id of the specified object for deletion 
     - headers: {  "Authorization": "token"  }
     - body: {}
 ```
